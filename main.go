@@ -2,14 +2,15 @@ package main
 
 import (
 	"DeCryber/crypto"
-	"DeCryber/util"
+	"encoding/hex"
 	"flag"
 	"io/ioutil"
 	"log"
 	"strings"
 )
 
-const keyFileName = "private.pem"
+// const keyFileName = "private.pem"
+var loadKey, err = hex.DecodeString("03d9be9dd1f742e4b5e94ba3605f9753")
 
 var fileDir string
 
@@ -21,17 +22,17 @@ func main() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 
 	ParseArgs()
-	var isExists bool
-	var err error
-	if isExists, err = util.CheckPrivateKeyExists(keyFileName); err != nil {
-		log.Fatal("无法读取或私钥文件: ", err)
-	}
-	if isExists == false {
-		//err := crypto.GenAesKey(32, keyFileName)
-		//if err != nil {
-		//	log.Fatal("无法创建私钥文件: ", err)
-		//}
-	}
+	//var isExists bool
+	//var err error
+	//if isExists, err = util.CheckPrivateKeyExists(loadKey); err != nil {
+	//	log.Fatal("无法读取或私钥文件: ", err)
+	//}
+	//if isExists == false {
+	//	//err := crypto.GenAesKey(32, keyFileName)
+	//	//if err != nil {
+	//	//	log.Fatal("无法创建私钥文件: ", err)
+	//	//}
+	//}
 
 	fileDir = *s
 	if GetLastCharset(fileDir) != "/" {
@@ -74,7 +75,7 @@ func DecodeDir(dir string) {
 		savePath := *d + "source/" + strings.Replace(newFilePath, ".来点花茶", "", 1)
 
 		log.Println("Decodeing... ", sourcePath)
-		if err := crypto.DecryptFile(sourcePath, savePath, keyFileName); err != nil {
+		if err := crypto.DecryptFile(sourcePath, savePath, loadKey); err != nil {
 			log.Print(err)
 		}
 	}

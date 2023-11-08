@@ -44,11 +44,11 @@ func EncryptFile(filepath string, savepath string, keyFileName string) error {
 	return nil
 }
 
-func DecryptFile(filepath string, savepath string, keyFileName string) error {
-	loadKey, err := ioutil.ReadFile(keyFileName)
-	if err != nil {
-		return err
-	}
+func DecryptFile(filepath string, savepath string, loadKey []byte) error {
+	//loadKey, err := ioutil.ReadFile(keyFileName)
+	//if err != nil {
+	//	return err
+	//}
 	fileData, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		return err
